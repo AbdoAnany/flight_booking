@@ -89,25 +89,24 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
                     ),
                   ],
                 ),
+                SizedBox(height: 8),
                 Divider(height: 8,),
-
+SizedBox(height: 16),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        // Handle sort
-                      },
-                      icon: const Icon(Icons.sort, size: 20),
-                      label: const Text('Sort'),
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.grey[700],
-                      ),
+
+                    _buildFilterChip(
+                        'Sort',Icons.keyboard_arrow_down
                     ),
+
                     const Spacer(),
-                    const Text(
-                      'Non - Stop',
-                      style:AppTypography. bodyText4
+
+                    _buildFilterChip(
+                      'Non - Stop',null
                     ),
+
                     const Spacer(),
 
                     _buildFilterChip(
@@ -158,14 +157,16 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
     );
   }
 
-  _buildFilterChip(String label,IconData icon){
+  _buildFilterChip(String label,IconData? icon){
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
         Text(label,
           style: AppTypography.bodyText4
         ),SizedBox(width: 4,),
-        Icon(icon,color: AppColors.text,),
+        Icon(icon,color: AppColors.border,),
       ],
     );
   }
@@ -182,33 +183,26 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
-          vertical: 8,
+          vertical: 4,
         ),
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected ? Colors.green : Colors.grey.shade300,
             width: isSelected ? 2 : 1,
           ),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(15),
           color: Colors.white,
         ),
         child: Column(
           children: [
             Text(
               dates,
-              style: TextStyle(
-                color: isSelected ? Colors.green : Colors.grey[700],
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              style: AppTypography.caption2
             ),
             const SizedBox(height: 4),
             Text(
               price,
-              style: TextStyle(
-                color: isSelected ? Colors.green : Colors.grey[600],
-                fontSize: 11,
-              ),
+                style: AppTypography.caption2
             ),
           ],
         ),

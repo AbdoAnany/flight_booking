@@ -40,6 +40,25 @@ class _FlightSearchScreenState extends State<SearchForm>with SingleTickerProvide
       MaterialPageRoute(builder: (context) => const SearchForm()),
     );
   }
+  // Dummy Flight Data
+  final List<FlightDetailsCard> dummyFlights = List.generate(
+    5,
+        (index) => FlightDetailsCard(
+      airlineName: 'Garuda Indonesia',
+      airlineIcon: AppImages.wing,
+      departureTime: '0${index + 1}:00 AM',
+      departureCode: 'CODE$index',
+      departureCity: 'City $index',
+      arrivalTime: '0${index + 3}:00 PM',
+      arrivalCode: 'CODE${index + 1}',
+      arrivalCity: 'City ${index + 1}',
+      duration: '${index + 2}h ${index * 10}m',
+      stops: index,
+      price: 100.0 + (index * 50),
+      tags: index % 2 == 0 ? ['Cheapest', 'Refundable'] : ['Refundable'],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,21 +82,16 @@ class _FlightSearchScreenState extends State<SearchForm>with SingleTickerProvide
 
             ),
 
-            SizedBox(height: 32),
-            FlightDetailsCard(
-              airlineName: 'Garuda Indonesia',
-              airlineIcon: 'assets/garuda_logo.png',
-              departureTime: '14:35',
-              departureCode: 'BLR',
-              departureCity: 'Bengaluru',
-              arrivalTime: '21:55',
-              arrivalCode: 'DXB',
-              arrivalCity: 'Dubai',
-              duration: '4h 30m',
-              stops: 2,
-              price: 409,
-              tags: const ['Cheapest', 'Refundable'],
-            )
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: const Text(
+                  '851 Flight Found',
+                  style:AppTypography.bodyText3
+
+              ),
+            ),
+            ...dummyFlights
           ],
         ),
       ),
