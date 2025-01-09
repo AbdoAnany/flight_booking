@@ -42,7 +42,7 @@ class FlightDetailsCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       color: AppColors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(24),
         side: BorderSide(color: Colors.grey.shade200),
       ),
       child: Padding(
@@ -259,6 +259,13 @@ class FlightDetailsCard extends StatelessWidget {
                 ),
               ],
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4,vertical: 8),
+              child: CustomPaint(
+                size: const Size(double.infinity, 4),
+                painter: DashedLinePainter2(),
+              ),
+            ),
             if (tags.isNotEmpty) ...[
               // Tags
               Row(
@@ -345,6 +352,30 @@ class DashedLinePainter extends CustomPainter {
 
     const dashWidth = 2;
     const dashSpace = 3;
+    double startX = 0;
+
+    while (startX < size.width) {
+      canvas.drawLine(
+        Offset(startX, size.height / 4),
+        Offset(startX + dashWidth, size.height / 4),
+        paint,
+      );
+      startX += dashWidth + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+class DashedLinePainter2 extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Color(0xFFC8C8C8)
+      ..strokeWidth = 1;
+
+    const dashWidth = 8;
+    const dashSpace = 8;
     double startX = 0;
 
     while (startX < size.width) {

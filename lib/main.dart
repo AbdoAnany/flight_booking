@@ -1,5 +1,3 @@
-
-
 import 'package:flight_booking_app/project/home/presentation/hoem_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,13 +7,14 @@ import 'core/theme/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await initializeDependencies();
+  // Set the status bar to a specific color (0xFF4CAF50) and adjust icon brightness
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFF4CAF50),
-      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Color(0xFF4CAF50), // Keep this color
+      statusBarIconBrightness: Brightness.light, // Light icons for dark background
     ),
   );
+
   runApp(const FlightBookingApp());
 }
 
@@ -28,17 +27,6 @@ class FlightBookingApp extends StatelessWidget {
       title: 'Flight Booking',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-
-
-      // theme: ThemeData(
-      //   primaryColor: const Color(0xFF4CAF50),
-      //   scaffoldBackgroundColor: Colors.white,
-      //   appBarTheme: const AppBarTheme(
-      //     backgroundColor: Colors.white,
-      //     elevation: 0,
-      //     iconTheme: IconThemeData(color: Colors.black),
-      //   ),
-      // ),
       home: const FlightSearchScreen(),
     );
   }
