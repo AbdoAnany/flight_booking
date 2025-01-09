@@ -8,6 +8,8 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../core/cont/image.dart';
 import '../../../core/theme/app_typography..dart';
+import '../../../core/utils/date_formatter.dart';
+import '../../../core/utils/widget/app_bar.dart';
 import '../../search_result/presentation/pages/FlightSearchScreen.dart';
 
 class FlightSearchScreen extends StatefulWidget {
@@ -17,7 +19,8 @@ class FlightSearchScreen extends StatefulWidget {
   State<FlightSearchScreen> createState() => _FlightSearchScreenState();
 }
 
-class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTickerProviderStateMixin {
+class _FlightSearchScreenState extends State<FlightSearchScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -31,35 +34,24 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
     _tabController.dispose();
     super.dispose();
   }
+
   final List<String> tabs = ['Round Trip', 'One Way', 'Multi City'];
+  DateTime dateDeparture = DateTime.now();
+  DateTime dateReturn = DateTime.now();
   onNavigateToSearch() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SearchForm()),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 48, toolbarHeight: 76,
-        leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Iconsax.arrow_left,
-              color: AppColors.textSecondary,
-            )),
-        // backgroundColor:Theme.of(context).appBarTheme.backgroundColor,
-        title: const Text('Search Flights', style: AppTypography.bodyText2),
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: AppColors.textSecondary,
-              ))
-        ],
-      ),
+      appBar:
+          const MyAppBar(title:'Search Flights',),
+
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,70 +61,75 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
               height: 148,
               width: double.infinity,
               decoration: const BoxDecoration(
-
                 image: DecorationImage(
                   image: AssetImage(AppImages.startTrip),
                   fit: BoxFit.cover,
                 ),
               ),
-              child:  Stack(
+              child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-               Align(alignment: Alignment.topLeft,
-                    child:    Padding(
-                      padding: const EdgeInsets.all(14.0),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.all(14.0),
                       child: Text("Let's start your trip",
                           style: AppTypography.bodyText1),
-                    ),),
-                  Positioned(bottom: -15,
-                    left: 0,right: 0,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -15,
+                    left: 0,
+                    right: 0,
                     child: Card(
                       elevation: 4,
                       margin: EdgeInsets.symmetric(horizontal: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      color:  AppColors.white,
-
-
                       child: TabBar(
                           controller: _tabController,
                           indicatorColor: AppColors.transparent,
                           labelColor: AppColors.transparent,
-                          overlayColor: WidgetStateProperty.all(AppColors.transparent),
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicatorPadding:  EdgeInsets.zero,
-
-                          labelPadding:  EdgeInsets.zero,
-
-
-
+                          indicatorWeight: 0,
+                          overlayColor:
+                              WidgetStateProperty.all(AppColors.transparent),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorPadding: EdgeInsets.zero,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            color: AppColors.transparent,
+                          ),
+                          labelPadding: EdgeInsets.zero,
                           padding: EdgeInsets.zero,
-                          dividerColor:  AppColors.transparent,
-                          onTap: (e){
+                          dividerColor: AppColors.transparent,
+                          onTap: (e) {
                             print(e);
-                            setState(() {
-
-                            });
+                            setState(() {});
                           },
                           // unselectedLabelColor: AppColors.textSecondary,
                           // indicatorSize: TabBarIndicatorSize.tab,
 
                           tabs: List.generate(tabs.length,
-                                  (index) =>_buildTab(tabs[index],index ) )
-
-
-                      ),
+                              (index) => _buildTab(tabs[index], index))),
                     ),
                   ),
                 ],
               ),
             ),
 
-
-
             SizedBox(height: 32),
-            FromToInputCard(),
+            FromToInputCard(
+              isReturn: _tabController.index != 1 ,
+              onSelect: (from, to) {
+                print('From: $from, To: $to');
+                if( _tabController.index != 1)
+                  {
+                    to=from;
+                  }
+                setState(() {});
+              },
+            ),
             // _buildLocationField('From'),
             SizedBox(height: 32),
 
@@ -143,20 +140,40 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
                   Expanded(
                     child: DatePickerField(
                       label: 'Departure',
-                      value: 'Sat, 23 Mar - 2024',
+                      value:
+                      DateFormatter.formatFlightDate(
+                          DateTime.parse(  dateDeparture.toIso8601String())
+                      )
+                    ,
                       onSelect: (date) {
-                        // Handle date selection
+                        dateDeparture = date;
+                        if(dateReturn.isBefore(dateDeparture)){
+                          dateReturn = dateDeparture;
+                        }
+                        setState(() {
+
+                        });
                       },
                     ),
                   ),
                   const SizedBox(width: 8),
+
                   Expanded(
                     child: DatePickerField(
                       label: 'Return',
-                      enabled: _tabController.index!=1,
-                      value: 'Sat, 23 Mar - 2024',
+                      enabled: _tabController.index != 1,
+                      value:     DateFormatter.formatFlightDate(
+                          DateTime.parse(  dateReturn.toIso8601String())
+                      )
+                     ,
                       onSelect: (date) {
-                        // Handle date selection
+                        dateReturn = date;
+                        if(dateReturn.isBefore(dateDeparture)){
+                          dateReturn = dateDeparture;
+                        }
+                        setState(() {
+
+                        });
                       },
                     ),
                   ),
@@ -167,13 +184,18 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child:   Row(
+              child: Row(
                 children: [
                   Expanded(
                     child: SelectorDropdown(
                       label: 'Travelers',
                       value: '1 Passenger',
-                      items: const ['1 Passenger', '2 Passengers', '3 Passengers', '4 Passengers'],
+                      items: const [
+                        '1 Passenger',
+                        '2 Passengers',
+                        '3 Passengers',
+                        '4 Passengers'
+                      ],
                       onChanged: (value) {
                         // Handle selection
                       },
@@ -184,7 +206,11 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
                     child: SelectorDropdown(
                       label: 'Cabin Class',
                       value: 'Economy Class',
-                      items: const ['Economy Class', 'Business Class', 'First Class'],
+                      items: const [
+                        'Economy Class',
+                        'Business Class',
+                        'First Class'
+                      ],
                       onChanged: (value) {
                         // Handle selection
                       },
@@ -198,13 +224,13 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
             Center(
               child: ElevatedButton(
                 onPressed: () {
+
                   onNavigateToSearch();
                 },
                 child: Text('Search Flights'),
               ),
             ),
             SizedBox(height: 16),
-
 
             // Search Form
             // const SearchForm(),
@@ -215,17 +241,22 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Travel Inspirations',
-                      style:AppTypography.bodyText3
-
-                  ),
+                  const Text('Travel Inspirations',
+                      style: AppTypography.bodyText3),
                   const SizedBox(height: 16),
                   SizedBox(
                     height: 200,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: const [
+                        TravelInspirationCard(
+                          image: AppImages.saudiArabia,
+                          title: 'Saudi Arabia',
+                        ),
+                        TravelInspirationCard(
+                          image: AppImages.kuwait,
+                          title: 'Kuwait',
+                        ),
                         TravelInspirationCard(
                           image: AppImages.saudiArabia,
                           title: 'Saudi Arabia',
@@ -241,7 +272,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
               ),
             ),
 
-           // Flight & Hotel Packages
+            // Flight & Hotel Packages
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: FlightHotelPackageCard(),
@@ -263,6 +294,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
       child: Text(label),
     );
   }
+
   Widget _buildTab(String text, int index) {
     bool isSelected = _tabController.index == index;
     return Tab(
@@ -285,6 +317,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
       ),
     );
   }
+
   Widget _buildLocationField(String label) {
     return TextField(
       decoration: InputDecoration(

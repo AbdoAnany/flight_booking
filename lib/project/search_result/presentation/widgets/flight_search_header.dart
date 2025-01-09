@@ -42,7 +42,8 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
           color: Colors.white,
           child: Container(
             height: 145,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0,
+                vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +92,7 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
                 ),
                 SizedBox(height: 8),
                 Divider(height: 8,),
-SizedBox(height: 16),
+SizedBox(height: 6),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -164,9 +165,11 @@ SizedBox(height: 16),
       children: [
 
         Text(label,
-          style: AppTypography.bodyText4
+          style: AppTypography.bodyText4.copyWith(
+            color: AppColors.black
+          )
         ),SizedBox(width: 4,),
-        Icon(icon,color: AppColors.border,),
+        Icon(icon,color: AppColors.black,),
       ],
     );
   }

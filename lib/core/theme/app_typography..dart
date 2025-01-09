@@ -32,7 +32,9 @@ class AppTypography {
   );
 
   static const bodyText2 =
-      TextStyle(fontSize: 18, color: AppColors.textSecondary, height: 28);
+      TextStyle(fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textSecondary, height: 28);
 
 
   static const bodyText3 = TextStyle(
@@ -46,7 +48,12 @@ class AppTypography {
     color: AppColors.textSecondary2,
     fontWeight: FontWeight.w500,
   );
-  static const bodyText5 = TextStyle(
+  static const bodyText55 = TextStyle(
+    fontSize: 14,
+    height: 1.6,
+    color: AppColors.black,
+    fontWeight: FontWeight.w700,
+  );  static const bodyText5 = TextStyle(
     fontSize: 14,
     height: 1.6,
     color: AppColors.text,
@@ -66,7 +73,7 @@ class AppTypography {
   static const caption2 = TextStyle(
     fontSize: 12, fontWeight: FontWeight.w400,
     // height: 12,
-    color: AppColors.text,
+    color: AppColors.black,
   );
   static const caption3 = TextStyle(
     fontSize: 12, fontWeight: FontWeight.w500,

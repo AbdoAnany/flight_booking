@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color.dart';
@@ -21,6 +22,10 @@ class AppTheme {
     ),
 appBarTheme: const AppBarTheme(
   backgroundColor: AppColors.secondary,
+  systemOverlayStyle:     SystemUiOverlayStyle(
+    statusBarColor: Color(0xFF4CAF50), // Keep this color
+    statusBarIconBrightness: Brightness.light, // Light icons for dark background
+  ),
 ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(

@@ -67,7 +67,7 @@ class FlightDetailsCard extends StatelessWidget {
                 // Airline Name
                 Text(
                    'Onward - $airlineName',
-                  style: AppTypography.bodyText5
+                  style: AppTypography.bodyText55
                 ),
                 const Spacer(),
                 // Price
@@ -128,6 +128,7 @@ class FlightDetailsCard extends StatelessWidget {
                         duration,
                           style: AppTypography.bodyText5
                       ),
+                      if(stops > 0) const SizedBox(height: 4),
                       Text(
                         '$stops Stops',
                           style: AppTypography.caption2
@@ -172,7 +173,7 @@ class FlightDetailsCard extends StatelessWidget {
                 // Airline Name
                 Text(
                     'Return - $airlineName',
-                    style: AppTypography.bodyText5
+                    style: AppTypography.bodyText55
                 ),
                 const Spacer(),
                 // Price
