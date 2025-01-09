@@ -1,4 +1,4 @@
-import 'package:flight_booking_app/project/home/presentation/hoem_screen.dart';
+import 'package:flight_booking_app/project/FlightSearch/presentation/pages/flight_search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,7 +11,8 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Color(0xFF4CAF50), // Keep this color
-      statusBarIconBrightness: Brightness.light, // Light icons for dark background
+      statusBarIconBrightness:
+          Brightness.light, // Light icons for dark background
     ),
   );
 

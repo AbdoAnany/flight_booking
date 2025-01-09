@@ -9,4 +9,12 @@ class DateFormatter {
     
     return '$dayName, $dayNumber $month - $year';
   }
+  static String formatTime(int hour) {
+    final isPM = hour >= 12;
+    final formattedHour = hour % 12 == 0 ? 12 : hour % 12; // Handle 12-hour format.
+    final period = isPM ? 'PM' : 'AM';
+
+    return '${formattedHour.toString().padLeft(2, '0')}:00 $period';
+  }
+
 }

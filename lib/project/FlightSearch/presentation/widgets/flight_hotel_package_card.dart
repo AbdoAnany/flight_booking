@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/cont/image.dart';
 import '../../../../core/theme/app_color.dart';
 import '../../../../core/theme/app_typography..dart';
+import '../../../../core/utils/widget/title_header.dart';
 
 class FlightHotelPackageCard extends StatelessWidget {
   const FlightHotelPackageCard({super.key});
@@ -12,10 +13,9 @@ class FlightHotelPackageCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Flight & Hotel Packages',
-          style:AppTypography.bodyText3
-        ),
+        const TitleHeader(title:  'Flight & Hotel Packages',),
+
+
         const SizedBox(height: 16),
         Container(
           height: 313,

@@ -40,6 +40,7 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
         Card(
           margin: const EdgeInsets.all(16),
           color: Colors.white,
+          elevation: 5,
           child: Container(
             height: 145,
             padding: const EdgeInsets.symmetric(horizontal: 16.0,
