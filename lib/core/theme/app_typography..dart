@@ -16,6 +16,10 @@ class AppTypography {
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );
+  static const headline3 =  const TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+  );
 
   static const bodyText1 =   TextStyle(
     color: Colors.white,
@@ -48,8 +52,13 @@ class AppTypography {
     fontSize: 12,fontWeight: FontWeight.w400,
     // height: 12,
     color: AppColors.white,
-  ); static const caption2 = TextStyle(
+  );
+  static const caption2 = TextStyle(
     fontSize: 12,fontWeight: FontWeight.w400,
+    // height: 12,
+    color: AppColors.text,
+  ); static const caption3 = TextStyle(
+    fontSize: 12,fontWeight: FontWeight.w500,
     // height: 12,
     color: AppColors.text,
   );

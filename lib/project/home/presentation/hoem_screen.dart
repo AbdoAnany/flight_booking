@@ -4,9 +4,11 @@ import 'package:flight_booking_app/project/home/presentation/widgets/flight_hote
 import 'package:flight_booking_app/project/home/presentation/widgets/search_form.dart';
 import 'package:flight_booking_app/project/home/presentation/widgets/travel_inspiration_card.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../core/cont/image.dart';
 import '../../../core/theme/app_typography..dart';
+import '../../search_result/presentation/pages/FlightSearchScreen.dart';
 
 class FlightSearchScreen extends StatefulWidget {
   const FlightSearchScreen({super.key});
@@ -30,6 +32,12 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
     super.dispose();
   }
   final List<String> tabs = ['Round Trip', 'One Way', 'Multi City'];
+  onNavigateToSearch() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SearchForm()),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,11 +46,19 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
         leading: IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.arrow_back_outlined,
+              Iconsax.arrow_left,
               color: AppColors.textSecondary,
             )),
         // backgroundColor:Theme.of(context).appBarTheme.backgroundColor,
         title: const Text('Search Flights', style: AppTypography.bodyText2),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.menu,
+                color: AppColors.textSecondary,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -137,6 +153,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
                   Expanded(
                     child: DatePickerField(
                       label: 'Return',
+                      enabled: _tabController.index!=1,
                       value: 'Sat, 23 Mar - 2024',
                       onSelect: (date) {
                         // Handle date selection
@@ -150,24 +167,26 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
+              child:   Row(
                 children: [
                   Expanded(
-                    child: SelectorField(
+                    child: SelectorDropdown(
                       label: 'Travelers',
                       value: '1 Passenger',
-                      onTap: () {
-                        // Show passenger selector
+                      items: const ['1 Passenger', '2 Passengers', '3 Passengers', '4 Passengers'],
+                      onChanged: (value) {
+                        // Handle selection
                       },
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: SelectorField(
+                    child: SelectorDropdown(
                       label: 'Cabin Class',
                       value: 'Economy Class',
-                      onTap: () {
-                        // Show class selector
+                      items: const ['Economy Class', 'Business Class', 'First Class'],
+                      onChanged: (value) {
+                        // Handle selection
                       },
                     ),
                   ),
@@ -179,7 +198,7 @@ class _FlightSearchScreenState extends State<FlightSearchScreen>with SingleTicke
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle search flights action
+                  onNavigateToSearch();
                 },
                 child: Text('Search Flights'),
               ),
