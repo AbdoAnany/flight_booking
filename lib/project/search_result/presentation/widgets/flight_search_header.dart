@@ -9,6 +9,7 @@ import '../../../../core/theme/app_color.dart';
 class FlightSearchHeader extends StatefulWidget {
   final String origin;
   final String destination;
+  final String tripType;
   final String departureDate;
   final String returnDate;
   // final Function(DateRange) onDateRangeChanged;
@@ -16,6 +17,7 @@ class FlightSearchHeader extends StatefulWidget {
   const FlightSearchHeader({
     required this.origin,
     required this.destination,
+    required this.tripType,
     required this.departureDate,
     required this.returnDate,
     // required this.onDateRangeChanged,
@@ -68,7 +70,7 @@ class _FlightSearchHeaderState extends State<FlightSearchHeader> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                      Text(
-                      '(Round Trip)',
+                      '(${widget.tripType})',
                       style: AppTypography.bodyText4.copyWith(
                         color: Colors.orange
                       )

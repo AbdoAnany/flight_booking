@@ -25,6 +25,8 @@ class SearchForm extends StatelessWidget {
             FlightSearchHeader(
               origin: 'BLR - ${flightSearchState.fromLocation}',
               destination: 'DXB - ${flightSearchState.toLocation}',
+              tripType: '${flightSearchState.tripType}',
+
               departureDate: DateFormatter.formatFlightDate(flightSearchState.departureDate),
               returnDate: DateFormatter.formatFlightDate(flightSearchState.returnDate ?? DateTime.now()),
             ),
